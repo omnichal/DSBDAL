@@ -1,0 +1,92 @@
+air quality:      https://www.kaggle.com/datasets/shrutibhargava94/india-air-quality-data
+heart:     https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset
+
+
+df = air
+dh = heart
+
+
+#CODE
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import random as rd
+
+df = pd.read_csv("/data.csv",encoding = "ISO-8859-1")
+df
+
+dh = pd.read_csv("/heart.csv")
+dh
+
+df.head()
+
+dh.head()
+
+df.info()
+
+dh.info()
+
+df.isnull().sum()
+
+dh.isnull().sum()
+
+df.dropna()
+
+dh.dropna()
+
+df1 = df.loc[111:999,['state','location','so2','rspm']]
+df1
+
+df2 = df.iloc[[1,3,5,4,22,43,54,67,7,8,9,50,10,11]]
+df2
+
+df_integration = pd.concat([df1,df2])
+df_integration
+
+df_integration.transpose()
+
+df.drop(columns = 'so2')
+
+df2.drop(1)
+
+df.melt()
+
+df_merged = pd.concat([df,dh])
+df_merged
+
+dh['caa'].unique()
+
+dh['caa'].value_counts()
+
+from sklearn import linear_model, metrics
+X = dh[["age"]]
+Y = dh[["thall"]]
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.2,random_state=1)
+
+len(X_train)
+
+len(X_test)
+
+dh.shape
+
+df.shape
+
+reg = linear_model.LinearRegression()
+
+print(X_train)
+
+model = reg.fit(X_train,Y_train)
+
+r_sq = reg.score(X_train,Y_train)
+print("determination coefficient: ",r_sq)
+
+print("intercept: ",model.intercept_)
+
+print("slope: ",model.coef_)
+
+Y_pred = model.predict(X_test)
+print("predicted response: ",Y_pred,sep='\n')
